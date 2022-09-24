@@ -5,7 +5,7 @@ import flask
 
 TG_BOT_APIKEY = os.getenv('TG_BOT_APIKEY') 
 
-WEBHOOK_HOST = 'https://tourism-is-purpose-tg-bot.herokuapp.com/'
+WEBHOOK_HOST = 'tourism-is-purpose-tg-bot.herokuapp.com/'
 WEBHOOK_PORT = os.environ.get('PORT', 80)  # 443, 80, 88 or 8443 (port need to be 'open')
 WEBHOOK_LISTEN = '0.0.0.0' 
 
