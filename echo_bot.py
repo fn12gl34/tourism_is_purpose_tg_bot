@@ -12,9 +12,9 @@ def remove_info(message):
     bot.delete_message(message.chat.id, message.message_id)
     
 @server.route("/")
-    def webhook():
-        bot.remove_webhook()
-        bot.set_webhook(url='https://tourism-is-purpose-tg-bot.herokuapp.com/') # этот url нужно заменить на url вашего Хероку приложения
-        return '?', 200
+def webhook():
+    bot.remove_webhook()
+    bot.set_webhook(url='https://tourism-is-purpose-tg-bot.herokuapp.com/') # этот url нужно заменить на url вашего Хероку приложения
+    return '?', 200
     
 server.run(host='0.0.0.0', port=os.environ.get('PORT', 80))
