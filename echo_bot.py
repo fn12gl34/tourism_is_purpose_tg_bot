@@ -43,7 +43,7 @@ class ScheduleMessage:
             schedule.run_pending()
             time.sleep(10)
             
-    def start_peocess():
+    def start_process():
         p = Process(target=ScheduleMessage.send_schedule, args=())
         p.start()
 
