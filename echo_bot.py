@@ -14,7 +14,7 @@ server = Flask(__name__)
 def send_msg():
     bot.send_message(CHAT_ID, 'hello there')
 
-schedule.every(3).minutes.do(job)
+schedule.every(3).minutes.do(send_msg)
 
 
 @server.route('/' + TOKEN, methods=['POST'])
