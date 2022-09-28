@@ -74,6 +74,6 @@ class ScheduleMessage:
 
 if __name__ == '__main__':
     if CHAT_ID:
-        schedule.every(1).minutes.do(send_info_msg_to_chat)
+        schedule.every().day.at('18:05').do(send_info_msg_to_chat)
         ScheduleMessage.start_process() 
     server.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
