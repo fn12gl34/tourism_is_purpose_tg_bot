@@ -39,7 +39,7 @@ info_message = '''
 '''
 
 def send_info_msg_to_chat():
-    bot.send_message(CHAT_ID, info_message, parse_mode='MarkdownV2')
+    bot.send_message(CHAT_ID, info_message, parse_mode='MarkdownV2', disable_web_page_preview=True)
 
 
 @server.route('/' + TOKEN, methods=['POST'])
