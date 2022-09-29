@@ -41,14 +41,12 @@ info_message = '''
 '''
 
 def send_info_msg_to_chat():
-    chp = ChatPermissions(can_send_messages=False)
-    bot.set_chat_permissions(TEST_CHAT_ID, permissions=chp)
+    bot.send_message(CHAT_ID, info_message, parse_mode='MarkdownV2', disable_web_page_preview=True)
     
     
 def restrict_chat_settings():
-    char_permissions = bot.getChat(TEST_CHAT_ID).permissions
-    chat_permissions.can_send_message = False
-    bot.set_chat_permission(chat_id=TEST_CHAT_ID, permissions=chat_permissions)
+    chp = ChatPermissions(can_send_messages=False)
+    bot.set_chat_permissions(TEST_CHAT_ID, permissions=chp)
     
 
 @server.route('/' + TOKEN, methods=['POST'])
