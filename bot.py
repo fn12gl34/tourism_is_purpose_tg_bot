@@ -45,7 +45,7 @@ def send_info_msg_to_chat():
     
     
 def restrict_chat_settings():
-    chp = ChatPermissions(can_send_messages=False)
+    chp = ChatPermissions(can_send_messages=True)
     bot.set_chat_permissions(TEST_CHAT_ID, permissions=chp)
     
 
