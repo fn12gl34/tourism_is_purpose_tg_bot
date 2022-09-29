@@ -8,6 +8,7 @@ import schedule
 
 TOKEN = os.getenv('TG_BOT_APIKEY')
 CHAT_ID = os.getenv('CHAT_ID')
+TEST_CHAT_ID = os.getenv('TEST_CHAT_ID')
 APP_URL = os.getenv('APP_URL')
 
 bot = telebot.TeleBot(TOKEN)
@@ -40,6 +41,12 @@ info_message = '''
 
 def send_info_msg_to_chat():
     bot.send_message(CHAT_ID, info_message, parse_mode='MarkdownV2', disable_web_page_preview=True)
+    
+ 
+def restrict_chat_settings():
+    char_permissions = bot.getChat(TEST_CHAT_ID).permissions
+    chat_permissions.can_send_message = False
+    bot.set_chat_permission(chat_id=TEST_CHAT_ID, permissions=chat_permissions)
 
 
 @server.route('/' + TOKEN, methods=['POST'])
@@ -75,5 +82,7 @@ class ScheduleMessage:
 if __name__ == '__main__':
     if CHAT_ID:
         schedule.every().day.at('09:00').do(send_info_msg_to_chat)
+        if TEST_CHAT_ID:
+            schedule.every(1).minutes.do(restrict_chat_settings)
         ScheduleMessage.start_process() 
     server.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
