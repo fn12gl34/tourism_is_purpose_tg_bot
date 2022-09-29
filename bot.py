@@ -4,12 +4,11 @@ from multiprocessing.context import Process
 
 from flask import Flask, request
 import telebot
-from telebot.types import ChatPermissions
+from telebot.types import 
 import schedule
 
 TOKEN = os.getenv('TG_BOT_APIKEY')
 CHAT_ID = os.getenv('CHAT_ID')
-TEST_CHAT_ID = os.getenv('TEST_CHAT_ID')
 APP_URL = os.getenv('APP_URL')
 
 bot = telebot.TeleBot(TOKEN)
@@ -74,15 +73,11 @@ def send_info_msg_to_chat():
     
     
 def restrict_chat_settings():
-    bot.send_message(TEST_CHAT_ID, restrict_message, parse_mode='MarkdownV2', disable_web_page_preview=True)
-    chp = ChatPermissions(can_send_messages=False)
-    bot.set_chat_permissions(TEST_CHAT_ID, permissions=chp)
+    bot.send_message(CHAT_ID, restrict_message, parse_mode='MarkdownV2', disable_web_page_preview=True)
     
     
 def unrestrict_chat_settings():
-    bot.send_message(TEST_CHAT_ID, unrestrict_message, parse_mode='MarkdownV2', disable_web_page_preview=True)
-    chp = ChatPermissions(can_send_messages=True, can_send_media_messages=True, can_send_other_messages=True, can_invite_users=True, can_add_web_page_previews=True)
-    bot.set_chat_permissions(TEST_CHAT_ID, permissions=chp)
+    bot.send_message(CHAT_ID, unrestrict_message, parse_mode='MarkdownV2', disable_web_page_preview=True)
     
 
 @server.route('/' + TOKEN, methods=['POST'])
@@ -117,9 +112,8 @@ class ScheduleMessage:
 
 if __name__ == '__main__':
     if CHAT_ID:
-        if TEST_CHAT_ID:
-            schedule.every(2).minutes.do(restrict_chat_settings)
-            schedule.every(4).minutes.do(unrestrict_chat_settings)
+        schedule.every().day.at('21:00').do(restrict_chat_settings)
+        schedule.every().day.at('05:00').do(unrestrict_chat_settings)
         schedule.every().day.at('09:00').do(send_info_msg_to_chat)
         ScheduleMessage.start_process() 
     server.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
