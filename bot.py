@@ -4,7 +4,6 @@ from multiprocessing.context import Process
 
 from flask import Flask, request
 import telebot
-from telebot.types import 
 import schedule
 
 TOKEN = os.getenv('TG_BOT_APIKEY')
